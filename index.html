@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jolet – breathe easy, unwind</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0e1626;--surface:#16233a;--text:#e9f0fa;--muted:#9aabc4;--line:#263a58;
+  --orb:#9ad9d0;--orb2:#7f7fe0;--btn:#a9e0d8;--btnText:#0b1a1f;--sel:#20345a;--warn:#ff9d8a;--warnbg:#2a1c24;--cue:#0b1a2a;
+  --serif:'Literata',Georgia,serif;--sans:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:light){:root{
+  --bg:#f2f6fb;--surface:#fff;--text:#17263d;--muted:#55698a;--line:#d3deec;
+  --orb:#8fd3c8;--orb2:#8a8ae6;--btn:#3a4fb0;--btnText:#fff;--sel:#e3eaf8;--warn:#b3261e;--warnbg:#fdeceb;}}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:400 17px/1.6 var(--sans);min-height:100vh}
+main{max-width:540px;margin:0 auto;padding:26px 22px 56px;display:flex;flex-direction:column;align-items:center;text-align:center}
+h1{font:500 2.2rem/1.1 var(--serif);margin:6px 0 2px;letter-spacing:.02em}
+.tag{color:var(--muted);margin:0 0 16px}
+.tabs{display:flex;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px;margin-bottom:16px}
+.tab{font:500 1rem var(--sans);color:var(--muted);background:none;border:0;border-radius:999px;padding:10px 22px;cursor:pointer;min-height:44px}
+.tab[aria-selected="true"]{background:var(--sel);color:var(--text)}
+.warn{width:100%;text-align:left;background:var(--warnbg);border:1px solid var(--warn);border-left-width:5px;border-radius:14px;padding:12px 16px;margin:0 0 20px;font-size:.95rem}
+.warn b{color:var(--warn)}
+.linkb{background:none;border:0;color:var(--text);font:600 .95rem var(--sans);text-decoration:underline;cursor:pointer;padding:6px 0;min-height:44px}
+.guide{max-width:36ch;margin:0 0 14px}.guide p{margin:0 0 8px}.soft{color:var(--muted);font-size:.97rem}
+.stage{position:relative;width:min(68vw,290px);aspect-ratio:1;display:grid;place-items:center;margin:4px 0 12px}
+.ring{position:absolute;inset:0;border-radius:50%;border:1px solid var(--line)}
+.orb,.orb2{position:absolute;border-radius:50%}
+.orb{inset:8%;background:radial-gradient(circle at 50% 38%,var(--orb),var(--orb2));opacity:.9;box-shadow:0 0 70px color-mix(in srgb,var(--orb2) 35%,transparent);animation:d1 17s ease-in-out infinite alternate}
+.orb2{inset:22%;background:radial-gradient(circle,var(--orb),transparent 70%);opacity:.5;animation:d2 11s ease-in-out infinite alternate}
+@keyframes d1{from{transform:scale(.96)}to{transform:scale(1.03)}}
+@keyframes d2{from{opacity:.25;transform:scale(.9)}to{opacity:.6;transform:scale(1.08)}}
+@media (prefers-reduced-motion:reduce){.orb,.orb2{animation:none}}
+.cue{position:relative;font:500 1.25rem/1.35 var(--serif);color:var(--cue);padding:0 26px;transition:opacity 1.2s;pointer-events:none}
+.time{min-height:1.6em;color:var(--muted);margin:0 0 12px;font-variant-numeric:tabular-nums}
+.row{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin:0 0 14px;color:var(--muted)}
+.row h2{flex-basis:100%;font:600 .9rem var(--sans);margin:0;color:var(--muted)}
+.chip,.row input[type=number]{font:500 1rem var(--sans);color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 14px;min-height:46px;cursor:pointer}
+.row input[type=number]{width:5em;text-align:center;cursor:text}
+.chip[aria-pressed="true"]{background:var(--sel);border-color:var(--orb2)}
+.row label{display:flex;align-items:center;gap:8px;min-height:44px;cursor:pointer}
+input[type=checkbox]{width:20px;height:20px;accent-color:var(--orb2)}
+.go{font:600 1.1rem var(--sans);background:var(--btn);color:var(--btnText);border:0;border-radius:999px;padding:14px 46px;min-height:52px;cursor:pointer;margin:2px 0 10px}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--orb);outline-offset:3px}
+.card{width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 20px;margin-top:18px}
+.card h2{font:500 1.1rem var(--serif);margin:0 0 6px}
+.card ul{margin:0;padding-left:1.1em;color:var(--muted);font-size:.97rem}.card li{margin:4px 0}
+.post{text-align:center}.post .row{margin-bottom:6px}
+.stats{color:var(--muted);font-size:.9rem;margin-top:14px}
+.lead{color:var(--muted);max-width:40ch;margin:0 0 18px}
+details{width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:16px;margin:0 0 10px}
+summary{cursor:pointer;padding:16px 20px;font:500 1.08rem var(--serif);list-style:none;min-height:52px}
+summary::-webkit-details-marker{display:none}
+summary small{display:block;font:400 .9rem var(--sans);color:var(--muted)}
+details[open] summary{padding-bottom:6px}
+.body{padding:0 20px 18px}.body p{margin:0 0 8px}.body ol{margin:6px 0 10px;padding-left:1.2em}.body li{margin:4px 0}
+.why{color:var(--muted);font-size:.93rem}
+.fine{color:var(--muted);font-size:.88rem;margin-top:16px;max-width:44ch}
+dialog{background:var(--surface);color:var(--text);border:2px solid var(--warn);border-radius:20px;width:calc(100% - 28px);max-width:540px;max-height:88vh;padding:0;overflow:auto}
+dialog::backdrop{background:rgba(5,8,16,.75)}
+.dlg{padding:22px 22px 20px;text-align:left}
+.dlg h2{font:500 1.45rem/1.25 var(--serif);margin:0 0 4px;color:var(--warn)}
+.dlg h3{font:600 1rem var(--sans);margin:16px 0 4px}
+.dlg ul{margin:0;padding-left:1.2em}.dlg li{margin:4px 0}
+.dlg .small{color:var(--muted);font-size:.9rem;margin-top:14px}
+.ack{display:flex;gap:10px;align-items:flex-start;margin:18px 0 12px;cursor:pointer}
+.ack input{margin-top:4px;flex:none}
+.dlg .go{width:100%;margin-top:6px}
+.dlg .go:disabled{opacity:.45;cursor:not-allowed}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+  <h1>Jolet</h1>
+  <p class="tag">Breathe easy. Unwind.</p>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="t1" aria-selected="true" aria-controls="p1">Breathe</button>
+    <button class="tab" role="tab" id="t2" aria-selected="false" aria-controls="p2">Other techniques</button>
+  </div>
+
+  <section id="p1" role="tabpanel" aria-labelledby="t1" style="width:100%;display:flex;flex-direction:column;align-items:center">
+    <div class="warn" role="note"><b>Safety:</b> Only sit or lie down in a safe place. Never use Jolet while driving, or in or near water. Stop if you feel dizzy or unwell. <button class="linkb" id="seeSafety">Read all safety warnings</button></div>
+    <div class="guide">
+      <p>Breathe a little slower and deeper, on the inhale and the exhale, in whatever way feels comfortable.</p>
+      <p class="soft">If you need a sigh, a yawn, or a different kind of breath at any point, take it. There is no right pace.</p>
+    </div>
+    <div class="stage" aria-hidden="true"><div class="ring"></div><div class="orb"></div><div class="orb2"></div><div class="cue" id="cue">Comfort first</div></div>
+    <p class="time" id="time" aria-live="polite">Ready when you are</p>
+
+    <div id="setup" style="width:100%">
+      <div class="row" id="pre"><h2>How do you feel right now? (optional)</h2>
+        <button class="chip m1" data-v="0">Very tense</button><button class="chip m1" data-v="1">Tense</button><button class="chip m1" data-v="2">Okay</button><button class="chip m1" data-v="3">Calm</button>
+      </div>
+      <div class="row"><h2>How long?</h2>
+        <button class="chip q" data-m="1">1</button><button class="chip q" data-m="2" aria-pressed="true">2</button><button class="chip q" data-m="5">5</button><button class="chip q" data-m="10">10</button><button class="chip q" data-m="20">20</button>
+        <input type="number" id="mins" value="2" min="1" max="999" inputmode="numeric" aria-label="Minutes"><span>min</span>
+      </div>
+      <div class="row">
+        <label><input type="checkbox" id="open"> No end, I’ll stop when ready</label>
+        <label><input type="checkbox" id="snd"> Soft sound and chime</label>
+      </div>
+    </div>
+    <button class="go" id="go">Begin</button>
+
+    <div class="card post" id="post" hidden><h2>How do you feel now?</h2>
+      <div class="row"><button class="chip m2" data-v="0">Very tense</button><button class="chip m2" data-v="1">Tense</button><button class="chip m2" data-v="2">Okay</button><button class="chip m2" data-v="3">Calm</button><button class="chip m2" data-v="4">Very calm</button></div>
+      <p class="soft" id="postMsg"></p></div>
+
+    <section class="card">
+      <h2>For your comfort</h2>
+      <ul>
+        <li>Slow and deep means easy, not big. Never strain, force or hold a breath.</li>
+        <li>Let your shoulders, jaw and belly soften.</li>
+        <li>If anything feels off, stop and breathe normally.</li>
+      </ul>
+    </section>
+    <p class="stats" id="stats" hidden></p>
+  </section>
+
+  <section id="p2" role="tabpanel" aria-labelledby="t2" hidden style="width:100%">
+    <p class="lead">Research-backed ways to settle stress. Try one that appeals, and skip anything that doesn’t feel comfortable.</p>
+    <details><summary>Cyclic sighing<small>1 to 5 minutes</small></summary><div class="body">
+      <ol><li>Breathe in through your nose, then add a second, smaller sip of air on top.</li><li>Let a long, unhurried breath out through your mouth.</li><li>Repeat for a few minutes, at whatever pace is easy.</li></ol>
+      <p class="why">In a 2023 Stanford trial, a few minutes of daily cyclic sighing improved mood more than mindfulness meditation. Sit or lie down, and stop if you feel lightheaded.</p></div></details>
+    <details><summary>Progressive muscle relaxation<small>5 to 15 minutes</small></summary><div class="body">
+      <ol><li>Start at your feet. Tense the muscles gently for about five seconds.</li><li>Release fully and notice the difference for a few breaths.</li><li>Work upward: calves, thighs, belly, hands, arms, shoulders, face.</li></ol>
+      <p class="why">Tense gently, and skip any area that is sore or injured. A long line of research links it to lower anxiety and better sleep.</p></div></details>
+    <details><summary>5-4-3-2-1 grounding<small>1 to 2 minutes</small></summary><div class="body">
+      <ol><li>Name 5 things you can see.</li><li>4 things you can feel, 3 you can hear.</li><li>2 you can smell, 1 you can taste.</li></ol>
+      <p class="why">It pulls attention out of racing thoughts and into the present moment, a common tool in anxiety care.</p></div></details>
+    <details><summary>Body scan<small>5 to 20 minutes</small></summary><div class="body">
+      <p>Lying or sitting, move your attention slowly from your head to your toes. Notice each area without trying to change it.</p>
+      <p class="why">Mindfulness-based programs reliably reduce stress and rumination in controlled studies.</p></div></details>
+    <details><summary>Name the feeling<small>1 minute</small></summary><div class="body">
+      <p>Say or write what you feel in a few words, such as “I feel anxious about tomorrow’s meeting.”</p>
+      <p class="why">Putting feelings into words (affect labeling) has been shown to calm the brain’s alarm response.</p></div></details>
+    <details><summary>Three good things<small>3 minutes, before bed</small></summary><div class="body">
+      <p>Write down three things that went well today and why each happened.</p>
+      <p class="why">In a well-known trial, this simple habit raised happiness and lowered low mood for months.</p></div></details>
+    <details><summary>Time in nature<small>20 minutes</small></summary><div class="body">
+      <p>Spend time in a park, garden, or any green space. Leave your phone in your pocket and just look around.</p>
+      <p class="why">One study found about 20 minutes outdoors was enough to lower the stress hormone cortisol.</p></div></details>
+    <p class="fine">General wellness ideas, not medical advice. If stress feels constant or overwhelming, talking with a doctor or therapist can help.</p>
+  </section>
+</main>
+
+<dialog id="dlg" aria-labelledby="dh"><div class="dlg">
+  <h2 id="dh">Read before you breathe</h2>
+  <p class="soft" style="margin:0">Important safety warnings</p>
+  <h3>Never practice</h3>
+  <ul><li>While driving, riding, or running any vehicle or machinery.</li>
+  <li>In or near water: bath, shower, pool, lake or hot tub.</li>
+  <li>While standing or walking, or anywhere you could fall or be hurt if you faint.</li>
+  <li>Any time you need to stay alert.</li></ul>
+  <h3>Always</h3>
+  <ul><li>Sit or lie down in a safe, quiet place.</li>
+  <li>Breathe gently. Never force, strain, hold your breath, or breathe hard or fast.</li></ul>
+  <h3>Stop right away if you feel</h3>
+  <ul><li>Lightheaded, dizzy, tingling, numb, faint or panicky.</li>
+  <li>Chest pain or tightness, or shortness of breath.</li>
+  <li>Unwell in any way. Breathe normally and stay seated or lying down until it passes. For serious symptoms, get medical help (call 911 in the US, or your local emergency number).</li></ul>
+  <h3>Talk to a doctor first if you</h3>
+  <ul><li>Have heart or blood-pressure problems, asthma, COPD or other lung conditions.</li>
+  <li>Have epilepsy or seizures, or a history of fainting.</li>
+  <li>Are pregnant.</li>
+  <li>Have panic disorder or trauma that focusing on breath can trigger.</li>
+  <li>Take regular medication or have any medical concern.</li>
+  <li>Are under 18. Ask a parent or guardian and a doctor first.</li></ul>
+  <p class="small">Jolet is for general relaxation only. It is not medical or mental-health treatment and does not replace professional care. You use it at your own risk and are responsible for your own safety.</p>
+  <label class="ack" id="gateRow"><input type="checkbox" id="chk"><span>I have read these warnings and I understand them.</span></label>
+  <button class="go" id="dlgBtn">Continue</button>
+</div></dialog>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var LS={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+  var cue=$('cue'), time=$('time'), go=$('go'), mins=$('mins'), open=$('open'), snd=$('snd'), setup=$('setup'), dlg=$('dlg');
+  var labels=['Very tense','Tense','Okay','Calm','Very calm'];
+  var reminders=['Comfort first','Let your breath be easy','Slower and a little deeper','Sigh or yawn if you need to','Let the exhale be unhurried','Breathe in a way that feels good','Soften your shoulders and jaw','Nothing to get right'];
+  var acked=LS.get('jolet_ack')==='1', gate=false;
+  var running=false, t0=0, total=0, iv=0, ri=0, last=0, pre=null, wl=null, ac=null, padG=null, oscs=[];
+
+  /* tabs */
+  function tab(n){['1','2'].forEach(function(k){var on=k===String(n);$('t'+k).setAttribute('aria-selected',on);$('p'+k).hidden=!on})}
+  $('t1').onclick=function(){tab(1)};$('t2').onclick=function(){tab(2)};
+
+  /* safety dialog */
+  function openDlg(g){gate=g;$('gateRow').hidden=!g;$('dlgBtn').textContent=g?'Continue':'Close';$('dlgBtn').disabled=g&&!$('chk').checked;dlg.showModal()}
+  $('chk').onchange=function(){$('dlgBtn').disabled=!this.checked};
+  $('dlgBtn').onclick=function(){if(gate){acked=true;LS.set('jolet_ack','1')}dlg.close()};
+  dlg.addEventListener('cancel',function(e){if(gate&&!acked)e.preventDefault()});
+  $('seeSafety').onclick=function(){openDlg(false)};
+  if(!acked)openDlg(true);
+
+  /* time chips */
+  [].forEach.call(document.querySelectorAll('.q'),function(b){b.onclick=function(){mins.value=b.dataset.m;sync()}});
+  function sync(){[].forEach.call(document.querySelectorAll('.q'),function(b){b.setAttribute('aria-pressed',b.dataset.m===String(mins.value))})}
+  mins.oninput=sync; open.onchange=function(){mins.disabled=open.checked};
+
+  /* mood */
+  function pick(sel,v,b){[].forEach.call(document.querySelectorAll(sel),function(x){x.setAttribute('aria-pressed',x===b)})}
+  [].forEach.call(document.querySelectorAll('.m1'),function(b){b.onclick=function(){pre=+b.dataset.v;pick('.m1',pre,b)}});
+  [].forEach.call(document.querySelectorAll('.m2'),function(b){b.onclick=function(){
+    var v=+b.dataset.v;pick('.m2',v,b);
+    var m=pre===null?'Thanks for checking in. Be gentle with yourself today.':
+      (v>pre?'You went from '+labels[pre].toLowerCase()+' to '+labels[v].toLowerCase()+'. Nice.':v===pre?'You’re feeling '+labels[v].toLowerCase()+', same as before. A short rest still counts.':'Feelings can take a little time to settle. Try again later, or one of the other techniques.');
+    $('postMsg').textContent=m}});
+
+  /* stats */
+  function stats(addSec){
+    var s=+(LS.get('jolet_sec')||0), n=+(LS.get('jolet_n')||0);
+    if(addSec>=30){s+=addSec;n++;LS.set('jolet_sec',s);LS.set('jolet_n',n)}
+    if(n){$('stats').hidden=false;$('stats').textContent=n+(n===1?' session':' sessions')+' · '+Math.round(s/60)+' min with Jolet'}
+  }
+  stats(0);
+
+  /* sound */
+  function audioStart(){try{
+    ac=ac||new (window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume();
+    padG=ac.createGain();padG.gain.value=0;var lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=600;padG.connect(lp);lp.connect(ac.destination);
+    oscs=[110,164.81,220.5].map(function(f){var o=ac.createOscillator();o.type='sine';o.frequency.value=f;o.connect(padG);o.start();return o});
+    padG.gain.linearRampToValueAtTime(0.05,ac.currentTime+4)}catch(e){}}
+  function audioStop(){try{if(!padG)return;var g=padG,os=oscs;g.gain.cancelScheduledValues(ac.currentTime);g.gain.setValueAtTime(g.gain.value,ac.currentTime);g.gain.linearRampToValueAtTime(0,ac.currentTime+2);
+    setTimeout(function(){os.forEach(function(o){try{o.stop()}catch(e){}})},2300);padG=null;oscs=[]}catch(e){}}
+  function chime(){try{if(!ac)return;[528,792].forEach(function(f,i){var o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=f;
+    g.gain.setValueAtTime(0.0001,ac.currentTime);g.gain.exponentialRampToValueAtTime(i?0.05:0.12,ac.currentTime+0.05);g.gain.exponentialRampToValueAtTime(0.0001,ac.currentTime+4);
+    o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+4.2)})}catch(e){}}
+
+  /* session */
+  function fmt(s){s=Math.max(0,Math.round(s));var m=Math.floor(s/60),r=s%60;return m+':'+(r<10?'0':'')+r}
+  function setCue(t){cue.style.opacity=0;setTimeout(function(){cue.textContent=t;cue.style.opacity=1},600)}
+  function stop(done){
+    var el=(Date.now()-t0)/1000;
+    running=false;clearInterval(iv);audioStop();if(done&&snd.checked)chime();
+    try{if(wl){wl.release();wl=null}}catch(e){}
+    go.textContent=done?'Begin again':'Begin';setup.hidden=false;cue.style.opacity=1;cue.textContent=done?'Well done':'Comfort first';
+    time.textContent=done?'Stay as you are a moment and notice how you feel.':'Breathe naturally. Begin again whenever you like.';
+    stats(el);
+    if(el>=30){$('post').hidden=false;$('postMsg').textContent='';pick('.m2',-1,null)}
+  }
+  function begin(){
+    if(!acked){openDlg(true);return}
+    var m=parseFloat(mins.value);if(!(m>0))m=2;mins.value=m;sync();
+    total=open.checked?0:m*60;t0=Date.now();ri=0;last=t0;running=true;
+    go.textContent='Stop';setup.hidden=true;$('post').hidden=true;cue.textContent=reminders[0];cue.style.opacity=1;
+    if(snd.checked)audioStart();
+    try{if(navigator.wakeLock)navigator.wakeLock.request('screen').then(function(l){wl=l}).catch(function(){})}catch(e){}
+    time.textContent=total?fmt(total)+' left':'0:00 so far';
+    iv=setInterval(function(){
+      var now=Date.now(),el=(now-t0)/1000;
+      if(total&&el>=total){stop(true);return}
+      time.textContent=total?fmt(total-el)+' left':fmt(el)+' so far';
+      if(now-last>=20000){last=now;ri=(ri+1)%reminders.length;setCue(reminders[ri])}
+    },500);
+  }
+  go.onclick=function(){running?stop(false):begin()};
+})();
+</script>
+</body>
+</html>
