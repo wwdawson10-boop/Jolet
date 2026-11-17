@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lull – breathe comfortably, relax</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#1f1a2e;--surface:#2a2440;--text:#efe9f7;--muted:#b3a9c9;--line:#3d3559;
+  --orb:#f2b8a2;--orb2:#c47a9a;--btn:#f4c3ae;--btnText:#2a1a24;--sel:#3a3157;
+  --serif:'Literata',Georgia,serif;--sans:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
+  --bg:#f7f0f4;--surface:#fff;--text:#2e2238;--muted:#6f5f7d;--line:#e3d5df;
+  --orb:#f0b49c;--orb2:#c9809f;--btn:#7a4a8a;--btnText:#fff;--sel:#f0e0ea;}}
+:root[data-theme="light"]{--bg:#f7f0f4;--surface:#fff;--text:#2e2238;--muted:#6f5f7d;--line:#e3d5df;--orb:#f0b49c;--orb2:#c9809f;--btn:#7a4a8a;--btnText:#fff;--sel:#f0e0ea}
+:root[data-theme="dark"]{color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:400 17px/1.6 var(--sans);min-height:100vh}
+main{max-width:540px;margin:0 auto;padding:28px 22px 56px;display:flex;flex-direction:column;align-items:center;text-align:center}
+h1{font:500 2.1rem/1.2 var(--serif);margin:6px 0 14px}
+.tabs{display:flex;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px;margin-bottom:22px}
+.tab{font:500 1rem var(--sans);color:var(--muted);background:none;border:0;border-radius:999px;padding:10px 22px;cursor:pointer;min-height:44px}
+.tab[aria-selected="true"]{background:var(--sel);color:var(--text)}
+.guide{max-width:36ch;margin:0 0 18px;color:var(--text)}
+.guide p{margin:0 0 8px}.guide .soft{color:var(--muted);font-size:.97rem}
+.stage{position:relative;width:min(70vw,300px);aspect-ratio:1;display:grid;place-items:center;margin:4px 0 12px}
+.ring{position:absolute;inset:0;border-radius:50%;border:1px solid var(--line)}
+.orb,.orb2{position:absolute;border-radius:50%}
+.orb{inset:8%;background:radial-gradient(circle at 50% 40%,var(--orb),var(--orb2));opacity:.88;
+  box-shadow:0 0 60px color-mix(in srgb,var(--orb) 30%,transparent);animation:drift1 17s ease-in-out infinite alternate}
+.orb2{inset:22%;background:radial-gradient(circle,var(--orb),transparent 70%);opacity:.5;animation:drift2 11s ease-in-out infinite alternate}
+@keyframes drift1{from{transform:scale(.96)}to{transform:scale(1.03)}}
+@keyframes drift2{from{opacity:.25;transform:scale(.9)}to{opacity:.6;transform:scale(1.08)}}
+@media (prefers-reduced-motion:reduce){.orb,.orb2{animation:none}}
+.cue{position:relative;font:500 1.25rem/1.35 var(--serif);color:#2a1a24;padding:0 26px;transition:opacity 1.2s;pointer-events:none}
+.time{min-height:1.6em;color:var(--muted);margin:0 0 14px;font-variant-numeric:tabular-nums}
+.row{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:0 0 16px;color:var(--muted)}
+.row input[type=number]{width:5.2em;font:500 1.05rem var(--sans);text-align:center;color:var(--text);background:var(--surface);
+  border:1px solid var(--line);border-radius:12px;padding:10px;min-height:48px}
+.row label{display:flex;align-items:center;gap:8px;min-height:44px;cursor:pointer}
+.row input[type=checkbox]{width:20px;height:20px;accent-color:var(--orb2)}
+.go{font:600 1.1rem var(--sans);background:var(--btn);color:var(--btnText);border:0;border-radius:999px;padding:14px 46px;min-height:52px;cursor:pointer}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--orb);outline-offset:3px}
+.note{width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 20px;margin-top:24px}
+.note h2{font:500 1.1rem var(--serif);margin:0 0 6px}
+.note ul{margin:0;padding-left:1.1em;color:var(--muted);font-size:.97rem}.note li{margin:4px 0}
+.lead{color:var(--muted);max-width:40ch;margin:0 0 18px}
+details{width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:16px;margin:0 0 10px}
+summary{cursor:pointer;padding:16px 20px;font:500 1.08rem var(--serif);list-style:none;min-height:52px}
+summary::-webkit-details-marker{display:none}
+summary small{display:block;font:400 .9rem var(--sans);color:var(--muted)}
+details[open] summary{padding-bottom:6px}
+.body{padding:0 20px 18px;color:var(--text)}
+.body p{margin:0 0 8px}.body ol{margin:6px 0 10px;padding-left:1.2em}.body li{margin:4px 0}
+.why{color:var(--muted);font-size:.93rem}
+.fine{color:var(--muted);font-size:.88rem;margin-top:18px;max-width:44ch}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+  <h1>Lull</h1>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="t1" aria-selected="true" aria-controls="p1">Breathe</button>
+    <button class="tab" role="tab" id="t2" aria-selected="false" aria-controls="p2">Other techniques</button>
+  </div>
+
+  <section id="p1" role="tabpanel" aria-labelledby="t1" style="width:100%;display:flex;flex-direction:column;align-items:center">
+    <div class="guide">
+      <p>Breathe a little slower and deeper, on the inhale and the exhale, in whatever way feels comfortable.</p>
+      <p class="soft">If you need a sigh, a yawn, or a different kind of breath at any point, take it. There is no right pace.</p>
+    </div>
+    <div class="stage" aria-hidden="true"><div class="ring"></div><div class="orb"></div><div class="orb2"></div><div class="cue" id="cue">Comfort first</div></div>
+    <p class="time" id="time" aria-live="polite">Ready when you are</p>
+    <div class="row" id="setup">
+      <span>Time</span>
+      <input type="number" id="mins" value="2" min="1" max="999" inputmode="numeric" aria-label="Minutes">
+      <span>min</span>
+      <label><input type="checkbox" id="open"> No end, I’ll stop when ready</label>
+    </div>
+    <button class="go" id="go">Begin</button>
+    <section class="note">
+      <h2>For your comfort</h2>
+      <ul>
+        <li>Sit or lie in any position that feels good.</li>
+        <li>Slow and deep means easy, not big. Never strain or force a breath.</li>
+        <li>If you feel lightheaded or uneasy, stop and breathe normally.</li>
+      </ul>
+    </section>
+  </section>
+
+  <section id="p2" role="tabpanel" aria-labelledby="t2" hidden style="width:100%">
+    <p class="lead">Research-backed ways to settle stress. Try one that appeals, and skip anything that doesn’t feel comfortable.</p>
+
+    <details><summary>Cyclic sighing<small>1 to 5 minutes</small></summary><div class="body">
+      <ol><li>Breathe in through your nose, then add a second, smaller sip of air on top.</li>
+      <li>Let a long, unhurried breath out through your mouth.</li>
+      <li>Repeat for a few minutes, at whatever pace is easy.</li></ol>
+      <p class="why">In a 2023 Stanford trial, a few minutes of daily cyclic sighing improved mood more than mindfulness meditation.</p></div></details>
+
+    <details><summary>Progressive muscle relaxation<small>5 to 15 minutes</small></summary><div class="body">
+      <ol><li>Start at your feet. Tense the muscles gently for about five seconds.</li>
+      <li>Release fully and notice the difference for a few breaths.</li>
+      <li>Work upward: calves, thighs, belly, hands, arms, shoulders, face.</li></ol>
+      <p class="why">Tense gently, and skip any area that is sore or injured. A long line of research links it to lower anxiety and better sleep.</p></div></details>
+
+    <details><summary>5-4-3-2-1 grounding<small>1 to 2 minutes</small></summary><div class="body">
+      <ol><li>Name 5 things you can see.</li><li>4 things you can feel, 3 you can hear.</li>
+      <li>2 you can smell, 1 you can taste.</li></ol>
+      <p class="why">It pulls attention out of racing thoughts and into the present moment, a common tool in anxiety care.</p></div></details>
+
+    <details><summary>Body scan<small>5 to 20 minutes</small></summary><div class="body">
+      <p>Lying or sitting, move your attention slowly from your head to your toes. Notice each area without trying to change it.</p>
+      <p class="why">Mindfulness-based programs reliably reduce stress and rumination in controlled studies.</p></div></details>
+
+    <details><summary>Name the feeling<small>1 minute</small></summary><div class="body">
+      <p>Say or write what you feel in a few words, such as “I feel anxious about tomorrow’s meeting.”</p>
+      <p class="why">Putting feelings into words (affect labeling) has been shown to calm the brain’s alarm response.</p></div></details>
+
+    <details><summary>Time in nature<small>20 minutes</small></summary><div class="body">
+      <p>Spend time in a park, garden, or any green space. Leave your phone in your pocket and just look around.</p>
+      <p class="why">One study found about 20 minutes outdoors was enough to lower the stress hormone cortisol.</p></div></details>
+
+    <p class="fine">These are general wellness ideas, not medical advice. If stress feels constant or overwhelming, talking with a doctor or therapist can help.</p>
+  </section>
+</main>
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var cue=$('cue'), time=$('time'), go=$('go'), mins=$('mins'), open=$('open'), setup=$('setup');
+  var reminders=['Comfort first','Let your breath be easy','Slower and a little deeper','Sigh or yawn if you need to','Let the exhale be unhurried','Breathe in a way that feels good','Soften your shoulders and jaw','Nothing to get right'];
+  var running=false, t0=0, total=0, iv=0, ri=0, last=0;
+  function tab(n){
+    ['1','2'].forEach(function(k){
+      var on=k===String(n); $('t'+k).setAttribute('aria-selected',on); $('p'+k).hidden=!on;
+    });
+  }
+  $('t1').onclick=function(){tab(1)}; $('t2').onclick=function(){tab(2)};
+  function fmt(s){s=Math.max(0,Math.round(s));var m=Math.floor(s/60),r=s%60;return m+':'+(r<10?'0':'')+r}
+  function setCue(t){cue.style.opacity=0;setTimeout(function(){cue.textContent=t;cue.style.opacity=1},600)}
+  open.onchange=function(){mins.disabled=open.checked};
+  function stop(done){
+    running=false; clearInterval(iv); go.textContent=done?'Begin again':'Begin'; setup.hidden=false;
+    cue.style.opacity=1; cue.textContent=done?'Well done':'Comfort first';
+    time.textContent=done?'Stay as you are a moment and notice how you feel.':'Breathe naturally. Begin again whenever you like.';
+  }
+  function begin(){
+    var m=parseFloat(mins.value); if(!(m>0)) m=2; mins.value=m;
+    total=open.checked?0:m*60; t0=Date.now(); ri=0; last=t0; running=true;
+    go.textContent='Stop'; setup.hidden=true; cue.textContent=reminders[0]; cue.style.opacity=1;
+    iv=setInterval(function(){
+      var now=Date.now(), el=(now-t0)/1000;
+      if(total&&el>=total){stop(true);return}
+      time.textContent=total?fmt(total-el)+' left':fmt(el)+' so far';
+      if(now-last>=20000){last=now;ri=(ri+1)%reminders.length;setCue(reminders[ri])}
+    },500);
+    time.textContent=total?fmt(total)+' left':'0:00 so far';
+  }
+  go.onclick=function(){running?stop(false):begin()};
+})();
+</script>
+</body>
+</html>
